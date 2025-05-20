@@ -14,5 +14,14 @@ public class Arvore {
         return 1 + contarNos(no.esquerda) + contarNos(no.direita);
     }
 
+    //método para percorrer os nós da árvore em pré-ordem
+    public void preOrdem(No no) {
+        if (no != null) {//se o nó for nulo significa que não existe mais nós para percorrer
+            System.out.print(no.valor + " ");//primeiro exibe o valor do nó
+            preOrdem(no.esquerda);//segundo exibe valor da sub-árvore esquerda
+            preOrdem(no.direita);//terceiro exibe valor da sub-árvore direita
+        }
+    }
+
 
 }
