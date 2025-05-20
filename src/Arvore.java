@@ -23,5 +23,12 @@ public class Arvore {
         }
     }
 
-
+    //método para percorrer em ordem
+    public void emOrdem(No no) {
+        if (no != null) {//se for vazia, fim
+            emOrdem(no.esquerda);//percorrer em ordem a sub-árvore esquerda
+            System.out.println(no.valor + " ");//exibir o valor do nó
+            emOrdem(no.direita);//percorrer em ordem a sub-árvore direita
+        }
+    }
 }
