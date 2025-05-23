@@ -28,6 +28,34 @@ public class Arvore {
         }
     }
 
+    //método iterativo em pré-ordem, usando o LIFO para percorrer e mostrar os nós
+    public void preOrdemIterativo(){
+        if(raiz == null){
+            return;
+        }
+        Stack<No> pilha = new Stack<>();//criar a pilha
+        pilha.push(raiz);//push adiciona valor na raiz
+
+        while(!pilha.isEmpty()){//enquanto não for vazia
+            No atual = pilha.pop();//retira nó da fila e retorna o valor
+            System.out.print(atual.valor + " ");//mostra o valor do nó atual da pilha
+            //adicionando os nós da direita e esquerda na pilha
+            if(atual.direita != null){
+                pilha.push(atual.direita);//adiciona nó da direita, antes da esquerda
+                //pois o LIFO tem que retirar o último nó adicionado
+            }
+            if(atual.esquerda != null){
+                pilha.push(atual.esquerda);//adiciona nó da esquerda
+            }
+            /*
+            Está entendido que adicionando o valor da direita primeiro, está correto pois
+            o pop vai retirar o último valor adicionado primeiro, o esquerdo, assim como
+            quero que seja com a travessia pré-ordem
+             */
+        }
+
+    }
+
 
     //método para percorrer em ordem
     public void emOrdem(No no) {
@@ -50,7 +78,7 @@ public class Arvore {
     //método para percorrer em nível
     public void emNivel(No no){
         if(raiz == null){
-            return;
+            return;//se raiz é nula então árvore nem existe
         }
         Queue<No> fila = new LinkedList<>();//criação da fila
         fila.add(raiz);//adicionar o valor da raiz
