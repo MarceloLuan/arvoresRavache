@@ -66,6 +66,32 @@ public class Arvore {
         }
     }
 
+    //método iterativo em ordem, também irei usar LIFO
+    public void emOrdemIterativo(){
+        if(raiz == null){
+            return;
+        }
+        Stack<No> pilha = new Stack<>();//criar a pilha
+        No atual = raiz;//criar nó atual
+        while(atual != null || !pilha.isEmpty()){//enquanto não for nulo ou pilha não for vazia
+            while(atual != null){//enquanto o nó atual não for nulo
+                pilha.push(atual);//adiciona o nó atual na pilha
+                atual = atual.esquerda;//atualiza o nó atual para o nó da esquerda
+            }
+            atual = pilha.pop();//retira o nó da pilha e mostra o valor
+            System.out.print(atual.valor + " ");//mostra o valor do nó
+            atual = atual.direita;//nó atual agora vira o da direita
+
+        }
+        /*
+        O método iterativo em ordem, enquanto o nó atual não for nulo,
+        adiciona o nó atual na pilha, e atualiza o nó atual para o nó da esquerda,
+        depois retira o nó da pilha e mostra o valor, e atualiza o nó atual para o nó da direita
+        assim, o nó atual vai ser sempre o último nó adicionado na pilha, e o nó da esquerda
+        vai ser sempre o primeiro nó adicionado na pilha, assim como o em ordem
+         */
+    }
+
     //método para percorrer em pós-ordem sendo recursivo
     public void posOrdem(No no){
         if(no != null){//se for vazio fim
