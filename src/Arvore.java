@@ -100,6 +100,39 @@ public class Arvore {
             System.out.println(no.valor + " ");//exibir o valor do nó
         }
     }
+    //método iterativo pós-ordem
+    public void posOrdemIterativo() {
+        if (raiz == null) {
+            return;
+        }
+
+        Stack<No> pilha1 = new Stack<>(); // Cria a pilha 1 para processar os nós
+        Stack<No> pilha2 = new Stack<>(); // Cria a pilha 2 para armazenar os nós em ordem pós-ordem
+
+        pilha1.push(raiz); // Adiciona a raiz na pilha 1
+
+        while (!pilha1.isEmpty()) { // Enquanto a pilha 1 não estiver vazia
+            No atual = pilha1.pop(); // Retira o nó da pilha 1
+            pilha2.push(atual); // Adiciona o nó na pilha 2
+
+            // adiciona os nós da esquerda e direita na pilha 1
+            if (atual.esquerda != null) {
+                pilha1.push(atual.esquerda);
+            }
+            if (atual.direita != null) {
+                pilha1.push(atual.direita);
+            }
+        }
+
+        //o loop vai adicionar os nós na pilha 2, e depois vai retirar
+        while (!pilha2.isEmpty()) {
+            No atual = pilha2.pop(); // Retira o nó da pilha 2
+            System.out.print(atual.valor + " "); // Exibe o valor
+        }
+
+    }
+
+
 
     //método para percorrer em nível
     public void emNivel(No no){
