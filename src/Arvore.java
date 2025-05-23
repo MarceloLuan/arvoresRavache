@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Arvore {
@@ -45,5 +47,30 @@ public class Arvore {
         }
     }
 
+    //método para percorrer em nível
+    public void emNivel(No no){
+        if(raiz == null){
+            return;
+        }
+        Queue<No> fila = new LinkedList<>();//criação da fila
+        fila.add(raiz);//adicionar o valor da raiz
+
+        while(!fila.isEmpty()){//quando não for vazia
+            No atual = fila.poll();//retira o nó da fila e mostra o valor
+            System.out.print(atual.valor + " ");//mostra valor do nó atual na tela
+            if(atual.esquerda != null){
+                fila.add(atual.esquerda);//adiciona o nó esquerdo na fila
+            }
+            if(atual.direita != null){
+                fila.add(atual.direita);//adiciona o nó direito na fila
+            }
+            /*
+            Estudando o caso, a fila é recomendada pois tudo que quero adicionar primeiro,
+            quero que mostre primeiro, e o loop while funciona assim, se não estiver vazia,
+            ele vai tirar o valor do nó atual e mostrar, logo depois adiciona os nós,
+            para que na volta do loop ele mostrar esses nós adicionados
+             */
+        }
+    }
 
 }
