@@ -57,6 +57,32 @@ public class Arvore {
         return contagemFolhas(no.esquerda) + contagemFolhas(no.direita);
     }
 
+    //método agora usando iteratividade, contar as folhas da árvore
+    public int contagemFolhasIterativo(){
+        if(raiz == null){
+            return 0;
+        }
+        Stack<No> pilha = new Stack<>();
+        pilha.push(raiz);
+        int contador = 0;
+
+        while(!pilha.isEmpty()) {
+            No atual = pilha.pop();
+            //verifica se o nó atual tem filhos ou nn
+            if(atual.esquerda == null && atual.direita == null){
+                contador++;//incrementar o contador
+            }
+            //adiciona os nós da direita e esquerda na pilha
+            if(atual.direita != null){
+                pilha.push(atual.direita);
+            }
+            if(atual.esquerda != null){
+                pilha.push(atual.esquerda);
+            }
+        }
+        return contador;
+    }
+
     //método para percorrer os nós da árvore em pré-ordem
     public void preOrdem(No no) {
         if (no != null) {//se o nó for nulo significa que não existe mais nós para percorrer
