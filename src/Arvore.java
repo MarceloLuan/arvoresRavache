@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -18,6 +20,30 @@ public class Arvore {
         return 1 + contarNos(no.esquerda) + contarNos(no.direita);
     }
 
+    //método iterativo para contar os nós da árvore
+    public int contarNosIterativo() {
+        if (raiz == null) {
+            return 0;
+        }
+        Stack<No> pilha = new Stack<>();
+        pilha.push(raiz);
+        int contador = 0; //inicializa o contador de nós
+
+        while (!pilha.isEmpty()) {//enquanto não for vazia
+            No atual = pilha.pop();//retira o nó da pilha e retorna o valor
+            contador++;//incrementa o contador de nós
+            if (atual.direita != null) {
+                pilha.push(atual.direita);//adiciona nó da direita
+            }
+            if (atual.esquerda != null) {
+                pilha.push(atual.esquerda);//adiciona nó da esquerda
+            }
+        }
+        /*
+        Uso de while para ir percorrendo e mostrando a pilha, e o contador vai incrementando
+        */
+        return contador;
+    }
 
     //método para percorrer os nós da árvore em pré-ordem
     public void preOrdem(No no) {
