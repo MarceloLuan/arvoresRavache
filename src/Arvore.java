@@ -45,6 +45,18 @@ public class Arvore {
         return contador;
     }
 
+    //método para contar as folhas da árvore com iteratividade
+    public int contagemFolhas(No no){
+        if(no == null){//se for nulo não existe mais nós
+            return 0;
+        }
+        if(no.esquerda == null && no.direita == null){
+            // verificar no if se não tem os filhos
+            return 1;
+        }
+        return contagemFolhas(no.esquerda) + contagemFolhas(no.direita);
+    }
+
     //método para percorrer os nós da árvore em pré-ordem
     public void preOrdem(No no) {
         if (no != null) {//se o nó for nulo significa que não existe mais nós para percorrer
