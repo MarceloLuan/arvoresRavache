@@ -45,7 +45,7 @@ public class Arvore {
     }
 
 
-    //método para contar as folhas da árvore com iteratividade
+    //método para contar as folhas da árvore com recusrvidade
     public int contagemFolhas(No no){
         if(no == null){//se for nulo não existe mais nós
             return 0;
