@@ -28,6 +28,26 @@ public class Main {
         //chamar o preOrdem
         System.out.print("Pré-ordem: ");
         arvore.preOrdem(arvore.raiz);
+        //chamar o preOrdem iterativo
+        System.out.print("\nPré-ordem com iteração: ");
+        arvore.preOrdemIterativo();
+        //chamar o em ordem
+        System.out.print("\nEm ordem: ");
+        arvore.emOrdem(arvore.raiz);
+        //chamar o em ordem iterativo
+        System.out.print("\nEm ordem com iteração: ");
+        arvore.emOrdemIterativo();
+        //chamar o posOrdem
+        System.out.print("\nPós-ordem: ");
+        arvore.posOrdem(arvore.raiz);
+        //chamar o posOrdem iterativo
+        System.out.print("\nPós-ordem com iteração: ");
+        arvore.posOrdemIterativo();
+        //chamar o nivel
+        System.out.print("\nNível: ");
+        arvore.emNivel(arvore.raiz);
+
+
 
 
     }
