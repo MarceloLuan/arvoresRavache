@@ -21,30 +21,29 @@ public class Arvore {
         return 1 + contarNos(no.esquerda) + contarNos(no.direita);
     }
 
-    //método iterativo para contar os nós da árvore
+    //método iterativo para contar os nós da árvore, mas agora mudando pra fila, usando linkedlist
     public int contarNosIterativo() {
         if (raiz == null) {
             return 0;
         }
-        Stack<No> pilha = new Stack<>();
-        pilha.push(raiz);
-        int contador = 0; //inicializa o contador de nós
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz); //adocopmar o nó raiz na fila
+        int contador = 0;
 
-        while (!pilha.isEmpty()) {//enquanto não for vazia
-            No atual = pilha.pop();//retira o nó da pilha e retorna o valor
-            contador++;//incrementa o contador de nós
-            if (atual.direita != null) {
-                pilha.push(atual.direita);//adiciona nó da direita
-            }
+        while (!fila.isEmpty()) {
+            No atual = fila.poll();
+            contador++; //somar no contador
+            // Adiciona os filhos do nó atual na fila
             if (atual.esquerda != null) {
-                pilha.push(atual.esquerda);//adiciona nó da esquerda
+                fila.add(atual.esquerda);
+            }
+            if (atual.direita != null) {
+                fila.add(atual.direita);
             }
         }
-        /*
-        Uso de while para ir percorrendo e mostrando a pilha, e o contador vai incrementando
-        */
-        return contador;
+        return contador; // Retorna valor que foi somado no contador
     }
+
 
     //método para contar as folhas da árvore com iteratividade
     public int contagemFolhas(No no){
