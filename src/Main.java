@@ -12,18 +12,23 @@ public class Main {
         no1.adicionarDireita(no3);
         no2.adicionarEsquerda(no4);
         arvore.raiz = no1; // Definindo a raiz da árvore
-        //contando os nós da árvore
+        //chamando os métodos criados na árvore
+        //chamar o contar nós
         int totalNos = arvore.contarNos(arvore.raiz);
         System.out.println("Total de nós na árvore: " + totalNos);
-        //contando os nós da árvore de forma iterativa
+        //chamar o contar nós iterativo
         int totalNosIterativo = arvore.contarNosIterativo();
-        System.out.println("Total de nós na árvore (iterativo): " + totalNosIterativo);
-        //contando as folhas da árvore
+        System.out.println("Total de nós na árvore: " + totalNosIterativo);
+        //chamar o contar folhas
         int totalFolhas = arvore.contagemFolhas(arvore.raiz);
         System.out.println("Total de folhas na árvore: " + totalFolhas);
-        //contando as folhas da árvore de forma iterativa
+        //chamar o contar folhas iterativo
         int totalFolhasIterativo = arvore.contagemFolhasIterativo();
         System.out.println("Total de folhas na árvore (iterativo): " + totalFolhasIterativo);
+        //chamar o preOrdem
+        System.out.print("Pré-ordem: ");
+        arvore.preOrdem(arvore.raiz);
+
 
     }
 }
