@@ -66,15 +66,15 @@ public class ArvoreAVL {
     }
 
     //inserir um novo nó na árvore AVL
-    public NoAVL inserir(NoAVL no, int Valor){
+    public NoAVL inserir(NoAVL no, int valor){
         if(no == null){
-            return new NoAVL(Valor);
+            return new NoAVL(valor);
         }
 
-        if(Valor < no.valor){
-            no.esquerda = inserir(no.esquerda, Valor);
-        } else if(Valor > no.valor) {
-            no.direita = inserir(no.direita, Valor);
+        if(valor < no.valor){
+            no.esquerda = inserir(no.esquerda, valor);
+        } else if(valor > no.valor) {
+            no.direita = inserir(no.direita, valor);
         } else {
             //não pode ter valor duplicado
             return no;
@@ -88,22 +88,22 @@ public class ArvoreAVL {
         //se o fator de balanceamento for maior que 1, significa que a árvore está desbalanceada
         if(fatorBalanceamento > 1) {
             //se o valor for menor que o valor do nó esquerdo, faz rotação à direita
-            if(Valor < no.esquerda.valor) {
+            if(valor < no.esquerda.valor) {
                 return rotacaoDireita(no);
             }
             //se o valor for maior que o valor do nó esquerdo, faz rotação dupla esquerda-direita
-            else if(Valor > no.esquerda.valor) {
+            else if(valor > no.esquerda.valor) {
                 return rotacaoEsquerdaDireita(no);
             }
         }
         //se o fator de balanceamento for menor que -1, significa que a árvore está desbalanceada
         else if(fatorBalanceamento < -1) {
             //se o valor for maior que o valor do nó direito, faz rotação à esquerda
-            if(Valor > no.direita.valor) {
+            if(valor > no.direita.valor) {
                 return rotacaoEsquerda(no);
             }
             //se o valor for menor que o valor do nó direito, faz rotação dupla direita-esquerda
-            else if(Valor < no.direita.valor) {
+            else if(valor < no.direita.valor) {
                 return rotacaoDireitaEsquerda(no);
             }
         }
