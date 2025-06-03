@@ -26,7 +26,7 @@ public class ArvoreAVL {
     }
 
     //criando a rotação à direita
-    public rotacaoDireita(NoAVL y){
+    public NoAVL rotacaoDireita(NoAVL y){
         NoAVL x = y.esquerda;
         NoAVL subArvoreDireitadeX = x.direita
 
@@ -39,7 +39,8 @@ public class ArvoreAVL {
         return x; //retorna o novo nó raiz
     }
 
-    public rotacaoEsquerda(NoAVL x) {
+    //criando rotação à esquerda
+    public NoAVL rotacaoEsquerda(NoAVL x) {
         NoAVL y = x.direita;
         NoAVL subArvoreEsquerdadeY = y.esquerda;
 
@@ -50,6 +51,18 @@ public class ArvoreAVL {
         atualizarAltura(y);
 
         return y;
+    }
+
+    //criando o método de rotação dupla esquerda-direita
+    public NoAVL rotacaoEsquerdaDireita(NoAVL no) {
+        no.esquerda = rotacaoEsquerda(no.esquerda);
+        return rotacaoDireita(no);
+    }
+
+    //criando o método de rotação dupla direita-esquerda
+    public NoAVL rotacaoDireitaEsquerda(NoAVL no) {
+        no.direita = rotacaoDireita(no.direita);
+        return rotacaoEsquerda(no);
     }
 
 }
