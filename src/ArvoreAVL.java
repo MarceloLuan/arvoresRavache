@@ -65,4 +65,50 @@ public class ArvoreAVL {
         return rotacaoEsquerda(no);
     }
 
+    //inserir um novo nó na árvore AVL
+    public NoAVL inserir(NoAVL no, int Valor){
+        if(no == null){
+            return new NoAVL(Valor);
+        }
+
+        if(Valor < no.valor){
+            no.esquerda = inserir(no.esquerda, Valor);
+        } else if(Valor > no.valor) {
+            no.direita = inserir(no.direita, Valor);
+        } else {
+            //não pode ter valor duplicado
+            return no;
+        }
+
+        //atualiza a altura do nó após a inserção
+        atualizarAltura(no);
+        //verifica o fator de balanceamento do nó
+        int fatorBalanceamento = fatorBalanceamento(no);
+
+        //se o fator de balanceamento for maior que 1, significa que a árvore está desbalanceada
+        if(fatorBalanceamento > 1) {
+            //se o valor for menor que o valor do nó esquerdo, faz rotação à direita
+            if(Valor < no.esquerda.valor) {
+                return rotacaoDireita(no);
+            }
+            //se o valor for maior que o valor do nó esquerdo, faz rotação dupla esquerda-direita
+            else if(Valor > no.esquerda.valor) {
+                return rotacaoEsquerdaDireita(no);
+            }
+        }
+        //se o fator de balanceamento for menor que -1, significa que a árvore está desbalanceada
+        else if(fatorBalanceamento < -1) {
+            //se o valor for maior que o valor do nó direito, faz rotação à esquerda
+            if(Valor > no.direita.valor) {
+                return rotacaoEsquerda(no);
+            }
+            //se o valor for menor que o valor do nó direito, faz rotação dupla direita-esquerda
+            else if(Valor < no.direita.valor) {
+                return rotacaoDireitaEsquerda(no);
+            }
+        }
+        //retorna o nó atualizado
+        return no;
+    }
+
 }
