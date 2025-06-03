@@ -47,8 +47,21 @@ public class Main {
         System.out.print("\nNível: ");
         arvore.emNivel(arvore.raiz);
 
-
-
+        System.out.println("\n Testando árvore AVL");
+        ArvoreAVL arvoreAVL = new ArvoreAVL();
+        NoAVL noAVL1 = new NoAVL(10);
+        NoAVL noAVL2 = new NoAVL(20);
+        NoAVL noAVL3 = new NoAVL(30);
+        NoAVL noAVL4 = new NoAVL(40);
+        NoAVL noAVL5 = new NoAVL(50);
+        NoAVL noAVL6 = new NoAVL(25);
+        // Inserindo nós na árvore AVL
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL1.valor);
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL2.valor);
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL3.valor);
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL4.valor);
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL5.valor);
+        arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL6.valor);
 
     }
 }

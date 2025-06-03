@@ -4,7 +4,7 @@ public class NoAVL {
     NoAVL esquerda, direita;
     int altura; //altura do nó na árvore AVL, diferenciando do nó comum
 
-    public NoAVL(String valor) {
+    public NoAVL(int valor) {
         this.valor = valor;
         this.esquerda = null;
         this.direita = null;
