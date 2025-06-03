@@ -37,8 +37,19 @@ public class ArvoreAVL {
         atualizarAltura(x);
 
         return x; //retorna o novo nó raiz
+    }
 
+    public rotacaoEsquerda(NoAVL x) {
+        NoAVL y = x.direita;
+        NoAVL subArvoreEsquerdadeY = y.esquerda;
 
+        y.esquerda = x;
+        x.direita = subArvoreEsquerdadeY;
+
+        atualizarAltura(x);
+        atualizarAltura(y);
+
+        return y;
     }
 
 }
