@@ -14,33 +14,34 @@ public class ArvoreAVL {
             return 0;
         }
         return altura(no.esquerda) - altura(no.direita);
+        //valor tem que ser -1, 0 ou 1 para a árvore estar balanceada
     }
 
     //atualiza a altura do nó
     public void atualizarAltura(NoAVL no) {
         if (no != null) {
-            no.altura = 1 + Math.max(altura(no.esquerda), altura(no.direita));
-            //pesquisando sobre o math.max, ele vai retornar o maior valor entre os dois valores passados
+            no.altura = Math.max(altura(no.esquerda), altura(no.direita)) + 1;
+            //sobre o math.max, ele vai retornar o maior valor entre os dois valores passados
             //e o 1 é para considerar o nó atual na altura
         }
     }
 
     //criando a rotação à direita
     public NoAVL rotacaoDireita(NoAVL y){
-        NoAVL x = y.esquerda;
-        NoAVL subArvoreDireitadeX = x.direita;
+        NoAVL x = y.esquerda;//x recebe o nó esquerdo de y
+        NoAVL subArvoreDireitadeX = x.direita;//criar temporário para armazenar a subárvore direita de x
 
-        x.direita = y;
-        y.esquerda = subArvoreDireitadeX;
+        x.direita = y;//atribuir nó inteiro
+        y.esquerda = subArvoreDireitadeX;//atribuir nó inteiro
 
-        atualizarAltura(y);
+        atualizarAltura(y);//chamar a função previamente criada
         atualizarAltura(x);
 
         return x; //retorna o novo nó raiz
     }
 
     //criando rotação à esquerda
-    public NoAVL rotacaoEsquerda(NoAVL x) {
+    public NoAVL rotacaoEsquerda(NoAVL x) {//ser espelho da outra rotação
         NoAVL y = x.direita;
         NoAVL subArvoreEsquerdadeY = y.esquerda;
 
@@ -80,33 +81,31 @@ public class ArvoreAVL {
             return no;
         }
 
-        //atualiza a altura do nó após a inserção
+        //atualiza a altura do nó após a inserção, que é o passo importante para manter a árvore balanceada
         atualizarAltura(no);
+
         //verifica o fator de balanceamento do nó
         int fatorBalanceamento = fatorBalanceamento(no);
 
-        //se o fator de balanceamento for maior que 1, significa que a árvore está desbalanceada
-        if(fatorBalanceamento > 1) {
-            //se o valor for menor que o valor do nó esquerdo, faz rotação à direita
-            if(valor < no.esquerda.valor) {
-                return rotacaoDireita(no);
-            }
-            //se o valor for maior que o valor do nó esquerdo, faz rotação dupla esquerda-direita
-            else if(valor > no.esquerda.valor) {
-                return rotacaoEsquerdaDireita(no);
-            }
+        //verificar casos de desbalanceamento
+        if(fatorBalanceamento > 1 && valor < no.esquerda.valor){
+            //caso 1: rotação à direita
+            return rotacaoDireita(no);
         }
-        //se o fator de balanceamento for menor que -1, significa que a árvore está desbalanceada
-        else if(fatorBalanceamento < -1) {
-            //se o valor for maior que o valor do nó direito, faz rotação à esquerda
-            if(valor > no.direita.valor) {
-                return rotacaoEsquerda(no);
-            }
-            //se o valor for menor que o valor do nó direito, faz rotação dupla direita-esquerda
-            else if(valor < no.direita.valor) {
-                return rotacaoDireitaEsquerda(no);
-            }
+        if(fatorBalanceamento < -1 && valor > no.direita.valor){
+            //caso 2: rotação à esquerda
+            return rotacaoEsquerda(no);
         }
+        if(fatorBalanceamento > 1 && valor > no.esquerda.valor){
+            no.esquerda = rotacaoEsquerda(no.esquerda);
+            return rotacaoDireita(no);
+        }
+
+        if(fatorBalanceamento < -1 && valor < no.direita.valor){
+            no.direita = rotacaoDireita(no.direita);
+            return rotacaoEsquerda(no);
+        }
+
         //retorna o nó atualizado
         return no;
     }
