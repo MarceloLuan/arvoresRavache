@@ -47,7 +47,7 @@ public class Main {
         System.out.print("\nNível: ");
         arvore.emNivel(arvore.raiz);
 
-        System.out.println("\n Testando árvore AVL");
+        /*System.out.println("\n Testando árvore AVL");
         ArvoreAVL arvoreAVL = new ArvoreAVL();
         NoAVL noAVL1 = new NoAVL(10);
         NoAVL noAVL2 = new NoAVL(20);
@@ -62,6 +62,19 @@ public class Main {
         arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL4.valor);
         arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL5.valor);
         arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, noAVL6.valor);
+
+         */
+
+        ArvoreAVL arvoreAVL = new ArvoreAVL();
+
+        int[] valores = {10, 20, 30, 40, 50, 25};
+
+        for (int valor : valores) {
+            arvoreAVL.raiz = arvoreAVL.inserir(arvoreAVL.raiz, valor);
+        }
+
+        System.out.print("Árvore AVL percurso em ordem: ");
+        arvoreAVL.emOrdem(arvoreAVL.raiz);
 
     }
 }
