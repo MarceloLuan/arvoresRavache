@@ -51,4 +51,18 @@ public class ArvoreRubroNegra {
         return y;
     }
 
+    //método de inserção rubro negra
+    public void inserir(int valor){
+        NoRubroNegra novoNo = new NoRubroNegra(valor);
+        if(this.raiz == null) {
+            this.raiz = novoNo;
+            this.raiz.corNo = NoRubroNegra.cor.preto;
+            return;
+        }
+        NoRubroNegra pai = null;
+        NoRubroNegra atual = this.raiz;
+
+
+    }
+
 }
