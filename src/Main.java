@@ -75,6 +75,5 @@ public class Main {
 
         System.out.print("Árvore AVL percurso em ordem: ");
         arvoreAVL.emOrdem(arvoreAVL.raiz);
-
     }
 }
