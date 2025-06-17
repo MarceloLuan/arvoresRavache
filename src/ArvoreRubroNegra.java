@@ -1,31 +1,34 @@
 public class ArvoreRubroNegra {
-    public NoRubroNegra raiz;
+    private NoRubroNegra raiz;
+    private final NoRubroNegra NIL;
 
     public ArvoreRubroNegra() {
-        this.raiz = null;
+        NIL = new NoRubroNegra(-1);
+        NIL.cor = Cor.PRETO;
+        NIL.esquerda = NIL.direita = NIL.pai = null;
+        raiz = NIL;
     }
 
     //criando rotação à direita para rubro negra
-    public NoRubroNegra rotacaoEsquerda(NoRubroNegra no){
-        NoRubroNegra y = no.direita;
-        no.direita = y.esquerda;
-        if (y.esquerda != null) {
-            y.esquerda.pai = no;
+    public NoRubroNegra rotacaoEsquerda(NoRubroNegra x){
+        NoRubroNegra y = x.direita;
+        x.direita = y.esquerda;
+        if(y.esquerda != NIL) {
+            y.esquerda.pai = x;
         }
 
-        y.pai = no.pai;
+        y.pai = x.pai;
 
-        if (no.pai == null) {
-            this.raiz = y;//se o nó for raiz, atualiza a raiz
-        } else if (no == no.pai.esquerda) {
-            no.pai.esquerda = y;//se o nó for filho esquerdo, atualiza o filho esquerdo do pai
+        if(x.pai == null) {
+            this.raiz = y; //se o nó for raiz, atualiza a raiz
+        } else if(x == x.pai.esquerda) {
+            x.pai.esquerda = y; //se o nó for filho esquerdo, atualiza o filho esquerdo do pai
         } else {
-            no.pai.direita = y;// se o nó for filho direito, atualiza o filho direito do pai
+            x.pai.direita = y; //se o nó for filho direito, atualiza o filho direito do pai
         }
-        y.esquerda = no;
-        no.pai = y;
 
-        return y;
+        y.esquerda = x;
+        x.pai = y;
     }
 
     //método rotação direita rubro negra
@@ -56,7 +59,7 @@ public class ArvoreRubroNegra {
         NoRubroNegra novoNo = new NoRubroNegra(valor);
         if(this.raiz == null) {
             this.raiz = novoNo;
-            this.raiz.corNo = NoRubroNegra.cor.preto;
+            this.raiz.cor = NoRubroNegra.cor.preto;
             return;
         }
         NoRubroNegra pai = null;

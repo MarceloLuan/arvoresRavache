@@ -14,6 +14,6 @@ public class NoRubroNegra {
         this.esquerda = null;
         this.direita = null;
         this.pai = null;
-        this.cor = Cor.VERMELHO;
+        this.cor = Cor.VERMELHO;// é vermelho pois, os novos nós são vermelho
     }
 }
