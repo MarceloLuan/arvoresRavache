@@ -110,6 +110,7 @@ public class ArvoreAVL {
         return no;
     }
 
+
     //método para imprimir a árvore em ordem
     public void emOrdem(NoAVL no) {
         if (no != null) {
