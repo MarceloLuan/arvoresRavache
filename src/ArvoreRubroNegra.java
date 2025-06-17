@@ -32,26 +32,26 @@ public class ArvoreRubroNegra {
     }
 
     //método rotação direita rubro negra
-    public NoRubroNegra rotacaoDireita(NoRubroNegra no){
-        NoRubroNegra y = no.esquerda;
-        no.esquerda = y.direita;
-        if (y.direita != null) {
-            y.direita.pai = no;
+    public NoRubroNegra rotacaoDireita(NoRubroNegra y){
+        NoRubroNegra x = y.esquerda;
+        y.esquerda = x.direita;
+
+        if(x.esquerda != NIL) {
+            x.direita.pai = y;
         }
 
-        y.pai = no.pai;
+        x.pai = y.pai;
 
-        if (no.pai == null) {
-            this.raiz = y;//se o nó for raiz, atualiza a raiz
-        } else if (no == no.pai.direita) {
-            no.pai.direita = y;//se o nó for filho direito, atualiza o filho direito do pai
+        if(y.pai == null) {
+            this.raiz = x; //se o nó for raiz, atualiza a raiz
+        } else if(y == y.pai.direita) {
+            y.pai.direita = x; //se o nó for filho direito, atualiza o filho direito do pai
         } else {
-            no.pai.esquerda = y;//se o nó for filho esquerdo, atualiza o filho esquerdo do pai
+            y.pai.esquerda = x; //se o nó for filho esquerdo, atualiza o filho esquerdo do pai
         }
-        y.direita = no;
-        no.pai = y;
 
-        return y;
+        x.direita = y;
+        y.pai = x;
     }
 
     //método de inserção rubro negra
