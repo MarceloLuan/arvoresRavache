@@ -139,4 +139,52 @@ public class ArvoreRubroNegra {
         }
         v.pai = u.pai;
     }
+
+    private NoRubroNegra minimo(NoRubroNegra no) {
+        while(no.esquerda != NIL) {
+            no = no.esquerda;
+        }
+        return no;
+    }
+
+    private void deletar(int valor){
+        NoRubroNegra z = searchTree(raiz, valor);
+        if(z != null) {
+            return;
+        }
+
+        NoRubroNegra y = z;
+        Cor yCorOriginal = y.cor;
+        NoRubroNegra x;
+
+        if(z.esquerda == NIL) {
+            x = z.direita;
+            transplante(z, z.direita);
+        } else if(z.direita == NIL) {
+            x = z.esquerda;
+            transplante(z, z.esquerda);
+        } else {
+            y = minimo(z.direita);
+            yCorOriginal = y.cor;
+            x = y.direita;
+            if(y.pai == z) {
+                x.pai = y;
+            } else {
+                transplante(y, y.direita);
+                y.direita = z.direita;
+                y.direita.pai = y;
+            }
+            transplante(z, y);
+            y.esquerda = z.esquerda;
+            y.esquerda.pai = y;
+            y.cor = z.cor;
+        }
+
+        if(yCorOriginal == Cor.PRETO) {
+            corrigirDelecao(x);
+        }
+    }
+
+
+
 }
