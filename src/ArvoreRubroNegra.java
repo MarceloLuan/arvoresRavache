@@ -10,7 +10,7 @@ public class ArvoreRubroNegra {
     }
 
     //criando rotação à direita para rubro negra
-    public NoRubroNegra rotacaoEsquerda(NoRubroNegra x){
+    public void rotacaoEsquerda(NoRubroNegra x){
         NoRubroNegra y = x.direita;
         x.direita = y.esquerda;
         if(y.esquerda != NIL) {
@@ -32,7 +32,7 @@ public class ArvoreRubroNegra {
     }
 
     //método rotação direita rubro negra
-    public NoRubroNegra rotacaoDireita(NoRubroNegra y){
+    public void rotacaoDireita(NoRubroNegra y){
         NoRubroNegra x = y.esquerda;
         y.esquerda = x.direita;
 
@@ -56,16 +56,35 @@ public class ArvoreRubroNegra {
 
     //método de inserção rubro negra
     public void inserir(int valor){
-        NoRubroNegra novoNo = new NoRubroNegra(valor);
-        if(this.raiz == null) {
-            this.raiz = novoNo;
-            this.raiz.cor = NoRubroNegra.cor.preto;
-            return;
+        NoRubroNegra no = new NoRubroNegra(valor);
+        no.esquerda = no.direita = no.pai = NIL;
+
+        NoRubroNegra y = null;
+        NoRubroNegra x = this.raiz;
+
+        while(x != NIL) {
+            y = x;
+            if(no.valor < x.valor) {
+                x = x.esquerda;
+            } else {
+                x = x.direita;
+            }
         }
-        NoRubroNegra pai = null;
-        NoRubroNegra atual = this.raiz;
 
+        no.pai = y;
+        if(y == null){
+            this.raiz = no;//se a árvore estiver vazia, o novo nó é a raiz
+        } else if(no.valor < y.valor) {
+            y.esquerda = no;//se o valor for menor, adiciona à esquerda
+        } else {
+            y.direita = no; //se o valor for maior, adiciona à direita
+        }
 
+        no.esquerda = NIL;
+        no.direita = NIL;
+        no.cor = Cor.VERMELHO;
+
+        corrigirInsercao(no);
     }
 
 }
