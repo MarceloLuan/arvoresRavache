@@ -87,4 +87,56 @@ public class ArvoreRubroNegra {
         corrigirInsercao(no);
     }
 
+    private void corrigirInsercao(NoRubroNegra k){
+        while(k.pai != null && k.pai.cor == Cor.VERMELHO){
+            if(k.pai == k.pai.pai.esquerda){
+                NoRubroNegra u = k.pai.pai.direita;
+                if(u.cor == Cor.VERMELHO) {
+                    k.pai.cor = Cor.PRETO;
+                    u.cor = Cor.PRETO;
+                    k.pai.pai.cor = Cor.VERMELHO;
+                    k = k.pai.pai;
+                } else {
+                    if(k == k.pai.direita) {
+                        k = k.pai;
+                        rotacaoEsquerda(k);
+                    }
+                    k.pai.cor = Cor.PRETO;
+                    k.pai.pai.cor = Cor.VERMELHO;
+                    rotacaoDireita(k.pai.pai);
+                }
+            } else{
+                NoRubroNegra u = k.pai.pai.esquerda;
+                if(u.cor == Cor.VERMELHO) {
+                    k.pai.cor = Cor.PRETO;
+                    u.cor = Cor.PRETO;
+                    k.pai.pai.cor = Cor.VERMELHO;
+                    k = k.pai.pai;
+                } else {
+                    if(k == k.pai.esquerda) {
+                        k = k.pai;
+                        rotacaoDireita(k);
+                    }
+                    k.pai.cor = Cor.PRETO;
+                    k.pai.pai.cor = Cor.VERMELHO;
+                    rotacaoEsquerda(k.pai.pai);
+                }
+            }
+            if(k == this.raiz) {
+                break;//se o nó for raiz, sai do loop
+            }
+            raiz.cor = Cor.PRETO;
+        }
+    }
+
+    private void transplante(NoRubroNegra u, NoRubroNegra v){
+        if(u.pai == null) {
+            this.raiz = v;
+        } else if(u == u.pai.esquerda) {
+            u.pai.esquerda = v;
+        } else {
+            u.pai.direita = v;
+        }
+        v.pai = u.pai;
+    }
 }
