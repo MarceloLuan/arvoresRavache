@@ -75,5 +75,21 @@ public class Main {
 
         System.out.print("Árvore AVL percurso em ordem: ");
         arvoreAVL.emOrdem(arvoreAVL.raiz);
+
+        ArvoreRubroNegra arvore = new ArvoreRubroNegra();
+
+        int[] valores = {10, 20, 30, 40, 50, 25};
+        for (int valor : valores) {
+            arvore.inserir(valor);
+        }
+        System.out.print("Árvore Rubro-Negra percurso em ordem: ");
+        arvore.emOrdem(arvore.raiz);
+
+        arvore.deletar(30);
+
+        System.out.print("\nÁrvore Rubro-Negra após remoção de 30: ");
+        arvore.emOrdem(arvore.raiz);
+
+
     }
 }

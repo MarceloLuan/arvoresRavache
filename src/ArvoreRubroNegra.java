@@ -185,6 +185,84 @@ public class ArvoreRubroNegra {
         }
     }
 
+    private void corrigirDelecao(NoRubroNegra x) {
+        NoRubroNegra w;
+        while(x != this.raiz && x.cor == Cor.PRETO) {
+            if(x == x.pai.esquerda) {
+                w = x.pai.direita;
+                if(w.cor == Cor.VERMELHO) {
+                    w.cor = Cor.PRETO;
+                    x.pai.cor = Cor.VERMELHO;
+                    rotacaoEsquerda(x.pai);
+                    w = x.pai.direita;
+                }
+                if(w.esquerda.cor == Cor.PRETO && w.direita.cor == Cor.PRETO) {
+                    w.cor = Cor.VERMELHO;
+                    x = x.pai;
+                } else{
+                    if (w.direita.cor == Cor.PRETO) {
+                        w.esquerda.cor = Cor.PRETO;
+                        w.cor = Cor.VERMELHO;
+                        rotacaoDireita(w);
+                        w = x.pai.direita;
+                    }
+                    w.cor = x.pai.cor;
+                    x.pai.cor = Cor.PRETO;
+                    w.direita.cor = Cor.PRETO;
+                    rotacaoEsquerda(x.pai);
+                    x = this.raiz;
+                }
+            } else{
+                w = x.pai.esquerda;
+                if (w.cor == Cor.VERMELHO) {
+                    w.cor = Cor.PRETO;
+                    x.pai.cor = Cor.VERMELHO;
+                    rotacaoDireita(x.pai);
+                    w = x.pai.esquerda;
+                }
+                if (w.direita.cor == Cor.PRETO && w.esquerda.cor == Cor.PRETO) {
+                    w.cor = Cor.VERMELHO;
+                    x = x.pai;
+                } else {
+                    if (w.esquerda.cor == Cor.PRETO) {
+                        w.direita.cor = Cor.PRETO;
+                        w.cor = Cor.VERMELHO;
+                        rotacaoEsquerda(w);
+                        w = x.pai.esquerda;
+                    }
+                    w.cor = x.pai.cor;
+                    x.pai.cor = Cor.PRETO;
+                    w.esquerda.cor = Cor.PRETO;
+                    rotacaoDireita(x.pai);
+                    x = this.raiz;
+                }
+            }
+        }
+        x.cor = Cor.PRETO;
+    }
 
+    private NoRubroNegra searchTree(NoRubroNegra no, int valor) {
+        if(no == NIL || no.valor == valor) {
+            return no;
+        }
+        if(valor < no.valor) {
+            return searchTree(no.esquerda, valor);
+        } else {
+            return searchTree(no.direita, valor);
+        }
+    }
 
+    public void emOrdem(){
+        emOrdemHelper(raiz);
+        System.out.println();
+    }
+
+    private void emOrdemHelper(NoRubroNegra no){
+        if(no != NIL){
+            emOrdemHelper(no.esquerda);
+            String colorSuffix = (no.cor == Cor.VERMELHO) ? " R" : " B";
+            System.out.print(no.valor + colorSuffix + " ");
+            emOrdemHelper(no.direita);
+        }
+    }
 }
