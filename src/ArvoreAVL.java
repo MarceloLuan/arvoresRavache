@@ -9,39 +9,36 @@ public class ArvoreAVL {
     }
 
     //calcula o fator de balanceamento do nó
-    public int fatorBalanceamento(NoAVL no) {
+    private int fatorBalanceamento(NoAVL no) {
         if (no == null) {
             return 0;
         }
         return altura(no.esquerda) - altura(no.direita);
-        //valor tem que ser -1, 0 ou 1 para a árvore estar balanceada
     }
 
     //atualiza a altura do nó
-    public void atualizarAltura(NoAVL no) {
+    private void atualizarAltura(NoAVL no) {
         if (no != null) {
             no.altura = Math.max(altura(no.esquerda), altura(no.direita)) + 1;
-            //sobre o math.max, ele vai retornar o maior valor entre os dois valores passados
-            //e o 1 é para considerar o nó atual na altura
         }
     }
 
     //criando a rotação à direita
-    public NoAVL rotacaoDireita(NoAVL y){
-        NoAVL x = y.esquerda;//x recebe o nó esquerdo de y
-        NoAVL subArvoreDireitadeX = x.direita;//criar temporário para armazenar a subárvore direita de x
+    private NoAVL rotacaoDireita(NoAVL y){
+        NoAVL x = y.esquerda;
+        NoAVL subArvoreDireitadeX = x.direita;
 
-        x.direita = y;//atribuir nó inteiro
-        y.esquerda = subArvoreDireitadeX;//atribuir nó inteiro
+        x.direita = y;
+        y.esquerda = subArvoreDireitadeX;
 
-        atualizarAltura(y);//chamar a função previamente criada
+        atualizarAltura(y);
         atualizarAltura(x);
 
-        return x; //retorna o novo nó raiz
+        return x;
     }
 
     //criando rotação à esquerda
-    public NoAVL rotacaoEsquerda(NoAVL x) {//ser espelho da outra rotação
+    private NoAVL rotacaoEsquerda(NoAVL x) {
         NoAVL y = x.direita;
         NoAVL subArvoreEsquerdadeY = y.esquerda;
 
@@ -55,13 +52,13 @@ public class ArvoreAVL {
     }
 
     //criando o método de rotação dupla esquerda-direita
-    public NoAVL rotacaoEsquerdaDireita(NoAVL no) {
+    private NoAVL rotacaoEsquerdaDireita(NoAVL no) {
         no.esquerda = rotacaoEsquerda(no.esquerda);
         return rotacaoDireita(no);
     }
 
     //criando o método de rotação dupla direita-esquerda
-    public NoAVL rotacaoDireitaEsquerda(NoAVL no) {
+    private NoAVL rotacaoDireitaEsquerda(NoAVL no) {
         no.direita = rotacaoDireita(no.direita);
         return rotacaoEsquerda(no);
     }
@@ -77,39 +74,81 @@ public class ArvoreAVL {
         } else if(valor > no.valor) {
             no.direita = inserir(no.direita, valor);
         } else {
-            //não pode ter valor duplicado
             return no;
         }
 
-        //atualiza a altura do nó após a inserção, que é o passo importante para manter a árvore balanceada
         atualizarAltura(no);
 
-        //verifica o fator de balanceamento do nó
         int fatorBalanceamento = fatorBalanceamento(no);
 
-        //verificar casos de desbalanceamento
         if(fatorBalanceamento > 1 && valor < no.esquerda.valor){
-            //caso 1: rotação à direita
             return rotacaoDireita(no);
         }
         if(fatorBalanceamento < -1 && valor > no.direita.valor){
-            //caso 2: rotação à esquerda
             return rotacaoEsquerda(no);
         }
         if(fatorBalanceamento > 1 && valor > no.esquerda.valor){
-            no.esquerda = rotacaoEsquerda(no.esquerda);
-            return rotacaoDireita(no);
+            return rotacaoEsquerdaDireita(no);
         }
-
         if(fatorBalanceamento < -1 && valor < no.direita.valor){
-            no.direita = rotacaoDireita(no.direita);
-            return rotacaoEsquerda(no);
+            return rotacaoDireitaEsquerda(no);
         }
 
-        //retorna o nó atualizado
         return no;
     }
 
+    //método para encontrar o nó com o valor mínimo na subárvore
+    private NoAVL encontrarMinimo(NoAVL no) {
+        while (no.esquerda != null) {
+            no = no.esquerda;
+        }
+        return no;
+    }
+
+    //método para remover um nó da árvore AVL
+    public NoAVL remover(NoAVL no, int valor) {
+        if (no == null) {
+            return no;
+        }
+
+        if (valor < no.valor) {
+            no.esquerda = remover(no.esquerda, valor);
+        } else if (valor > no.valor) {
+            no.direita = remover(no.direita, valor);
+        } else {
+            if (no.esquerda == null || no.direita == null) {
+                NoAVL temp = (no.esquerda != null) ? no.esquerda : no.direita;
+                if (temp == null) {
+                    return null;
+                } else {
+                    return temp;
+                }
+            } else {
+                NoAVL temp = encontrarMinimo(no.direita);
+                no.valor = temp.valor;
+                no.direita = remover(no.direita, temp.valor);
+            }
+        }
+
+        atualizarAltura(no);
+
+        int fatorBalanceamento = fatorBalanceamento(no);
+
+        if (fatorBalanceamento > 1 && fatorBalanceamento(no.esquerda) >= 0) {
+            return rotacaoDireita(no);
+        }
+        if (fatorBalanceamento < -1 && fatorBalanceamento(no.direita) <= 0) {
+            return rotacaoEsquerda(no);
+        }
+        if (fatorBalanceamento > 1 && fatorBalanceamento(no.esquerda) < 0) {
+            return rotacaoEsquerdaDireita(no);
+        }
+        if (fatorBalanceamento < -1 && fatorBalanceamento(no.direita) > 0) {
+            return rotacaoDireitaEsquerda(no);
+        }
+
+        return no;
+    }
 
     //método para imprimir a árvore em ordem
     public void emOrdem(NoAVL no) {

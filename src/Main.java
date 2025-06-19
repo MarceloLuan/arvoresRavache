@@ -75,6 +75,7 @@ public class Main {
 
         System.out.print("Árvore AVL percurso em ordem: ");
         arvoreAVL.emOrdem(arvoreAVL.raiz);
+        arvoreAVL.raiz = arvoreAVL.remover(arvoreAVL.raiz, 30);
 
         ArvoreRubroNegra arvore = new ArvoreRubroNegra();
 
